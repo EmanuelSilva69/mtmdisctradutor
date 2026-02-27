@@ -111,7 +111,7 @@ class AnalisadorSintatico:
                     ultima_variavel_texto = novo_texto_junto
                     
                     # Fizemos isso aqui pois às vezes o usuário pode querer usar uma frase como variável, tipo "eu quero", e o Léxico vai separar "eu" e "quero" como variáveis distintas. Com esse processo, juntamos elas de volta para que a fórmula final fique mais legível (ex: "P ∧ Q" ao invés de "P ∧ R" onde P = "eu" e R = "quero").
-                    # Note que isso é só para deixar a fórmula mais bonita, não é obrigatório para o negócio lógico em si. Se o usuário quiser usar "eu" e "quero" como variáveis distintas, ele pode colocar uma vírgula entre elas ("eu, quero") para que o Léxico trate como duas variáveis separadas.
+                    # Note que isso é só para deixar a fórmula mais bonita, não é obrigatório para o negócio lógico em si. 
                 
                 elif tipo == 'TOKEN_SE':
                     raise SyntaxError("Erro gramatical: Uso incorreto da palavra 'Se' no meio da frase.")
@@ -164,4 +164,5 @@ if __name__ == "__main__":
             print(f"Fórmula Matemática: {formula}")
         except Exception as e:
             print(e)
+
     #FINALMENTE ISSO AQUI TA FUNCIONAL MEU DEUS
