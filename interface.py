@@ -47,7 +47,17 @@ def processar_sentenca(frase):
     
     return formula, variaveis_map, tabela, vars_encontradas, etapas
 
-
 def main():
     configurar_pagina()
     renderizar_cabecalho()
+
+    # --- ENTRADA DE DADOS ---
+    col1, col2 = st.columns([3, 1])
+    with col1:
+        frase_usuario = st.text_input(
+            "Digite sua frase lógica:", 
+            placeholder="Ex: Se estudo e pratico, então aprendo"
+        )
+    with col2:
+        st.write("##") # Espaçador para alinhar o botão
+        botao_gerar = st.button("Gerar Tabela-Verdade", use_container_width=True)
