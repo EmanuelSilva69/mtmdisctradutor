@@ -61,3 +61,51 @@ def main():
     with col2:
         st.write("##") # Espaçador para alinhar o botão
         botao_gerar = st.button("Gerar Tabela-Verdade", use_container_width=True)
+
+    if botao_gerar:
+        if not frase_usuario.strip():
+            st.warning("Por favor, digite uma frase antes de processar.")
+            return
+
+        try:
+            # Chamada da lógica de integração
+            formula, vars_map, tabela, vars_list, etapas = processar_sentenca(frase_usuario)
+
+            # --- EXIBIÇÃO DE RESULTADOS ---
+            st.subheader("✅ Análise Concluída")
+            
+            res_col1, res_col2 = st.columns(2)
+            
+            with res_col1:
+                st.info("**Mapeamento de Proposições:**")
+                # Exibe o dicionário de forma legível
+                for termo, letra in vars_map.items():
+                    st.write(f"🔹 **{letra}**: {termo}")
+
+            with res_col2:
+                st.success("**Fórmula Lógica Gerada:**")
+                st.code(formula, language="text")
+
+            # --- TABELA VERDADE ---
+            st.divider()
+            st.subheader("📊 Tabela-Verdade")
+            
+            # Convertendo a lista de dicionários em um DataFrame do Pandas para o Streamlit exibir
+            df = pd.DataFrame(tabela)
+            
+            # Traduzindo True/False para V/F para ficar academicamente correto
+            df_visual = df.applymap(lambda x: "V" if x else "F")
+            
+            # Exibindo a tabela com estilo
+            st.dataframe(df_visual, use_container_width=True)
+            
+            st.caption(f"A tabela possui {len(df)} combinações possíveis ($2^{len(vars_list)}$ linhas).")
+
+        except SyntaxError as se:
+            st.error(f"**Erro de Sintaxe:** {se}")
+        except Exception as e:
+            st.error(f"**Erro Inesperado:** Não foi possível processar esta frase. Verifique a estrutura. (Detalhe: {e})")
+
+# Ponto de entrada da aplicação
+if __name__ == "__main__":
+    main()
