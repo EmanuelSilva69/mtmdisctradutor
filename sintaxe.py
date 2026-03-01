@@ -57,8 +57,10 @@ class AnalisadorSintatico:
             #esse estado aqui espera uma váriável ou um "Se" ou um "Não". Ele é o estado inicial e também o estado para onde voltamos depois de ler um operador.
             if estado == 'ESPERANDO_TERMO':
                 if tipo == 'TOKEN_ENTAO':
-                    # A vírgula anterior já fez o papel do "então".
-                    # Ignoramos a palavra e continuamos esperando a variável.
+                    # CORREÇÃO DO "ENTÃO" APÓS VÍRGULA:
+                    # Se a vírgula anterior botou um '∧', nós corrigimos para '→'
+                    if len(formula_tokens) > 0 and formula_tokens[-1] == '∧':
+                        formula_tokens[-1] = self.simbolos['TOKEN_ENTAO']
                     continue
 
                 if tipo == 'TOKEN_SE':
@@ -111,7 +113,7 @@ class AnalisadorSintatico:
                     ultima_variavel_texto = novo_texto_junto
                     
                     # Fizemos isso aqui pois às vezes o usuário pode querer usar uma frase como variável, tipo "eu quero", e o Léxico vai separar "eu" e "quero" como variáveis distintas. Com esse processo, juntamos elas de volta para que a fórmula final fique mais legível (ex: "P ∧ Q" ao invés de "P ∧ R" onde P = "eu" e R = "quero").
-                    # Note que isso é só para deixar a fórmula mais bonita, não é obrigatório para o negócio lógico em si. 
+                    # Note que isso é só para deixar a fórmula mais bonita, não é obrigatório para o negócio lógico em si. Se o usuário quiser usar "eu" e "quero" como variáveis distintas, ele pode colocar uma vírgula entre elas ("eu, quero") para que o Léxico trate como duas variáveis separadas.
                 
                 elif tipo == 'TOKEN_SE':
                     raise SyntaxError("Erro gramatical: Uso incorreto da palavra 'Se' no meio da frase.")
@@ -148,7 +150,8 @@ if __name__ == "__main__":
         "Se chove, então não saio e durmo ou jogo",
         "Como ou bebo água", 
         "Ando por ai pulando e dançando durante o carnaval ou fico em casa assistindo Netflix",
-        "Ela dança, eu danço, ela dança, eu danço"
+        "Estudo e trabalho, então não canso e venço.",
+        "Não é verdade que chove ou  não venta"
     ]
     
     for frase in frases_para_testar:
@@ -164,5 +167,4 @@ if __name__ == "__main__":
             print(f"Fórmula Matemática: {formula}")
         except Exception as e:
             print(e)
-
     #FINALMENTE ISSO AQUI TA FUNCIONAL MEU DEUS
