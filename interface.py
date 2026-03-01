@@ -27,6 +27,27 @@ def renderizar_cabecalho():
     """)
     st.divider()
 
+def processar_sentenca(frase):
+    """
+    Função 'ponte' que conecta a interface com os módulos de processamento.
+    Retorna os dados processados ou levanta um erro.
+    """
+    lexico = AnalisadorLexicoAFD()
+    sintatico = AnalisadorSintatico()
+    matematico = ModuloMatematico()
+
+    # 1. Análise Léxica
+    tokens = lexico.tokenizar(frase)
+    
+    # 2. Análise Sintática (Gera a fórmula e o mapa de variáveis)
+    formula, variaveis_map = sintatico.parse(tokens)
+    
+    # 3. Processamento Matemático (Gera a Tabela Verdade)
+    tabela, vars_encontradas, etapas = matematico.gerar_tabela_verdade(formula)
+    
+    return formula, variaveis_map, tabela, vars_encontradas, etapas
+
+
 def main():
     configurar_pagina()
     renderizar_cabecalho()
