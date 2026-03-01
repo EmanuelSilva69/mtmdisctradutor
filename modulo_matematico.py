@@ -77,3 +77,63 @@ class ModuloMatematico:
         
         for linha in tabela:
             print(" | ".join(("V" if linha.get(col) else "F").center(larguras[col]) for col in colunas))
+
+# ==========================================
+# ÁREA DE TESTE DE INTEGRAÇÃO COMPLETA
+# ==========================================
+if __name__ == "__main__":
+    # Importamos os módulos que criamos nos arquivos anteriores
+    # (Certifique-se de que os nomes dos arquivos estão corretos: base_lexica.py e sintaxe.py)
+    try:
+        from base_lexica import AnalisadorLexicoAFD
+        from sintaxe import AnalisadorSintatico
+    except ImportError:
+        print("⚠️ Atenção: Certifique-se de que 'base_lexica.py' e 'sintaxe.py' estão na mesma pasta.")
+        exit()
+
+    # Instanciamos as 3 máquinas do nosso "compilador"
+    lexico = AnalisadorLexicoAFD()
+    sintatico = AnalisadorSintatico()
+    matematico = ModuloMatematico()
+    
+    # Lista de frases de teste (do mais simples ao mais complexo, incluindo os parênteses do Josuel)
+    frases_para_testar = [
+        "chove e venta",
+        "se estudo, então passo",
+        "Se estudo e não durmo, logo passo ou surto",
+        "Se chove, então não saio e durmo ou jogo",
+        "Como ou bebo água", 
+        "Ando por ai pulando e dançando durante o carnaval ou fico em casa assistindo Netflix",
+        "Estudo e trabalho, então não canso e venço.",
+        "Não é verdade que chove ou  não venta"
+    ]
+    
+    for frase in frases_para_testar:
+        print("\n" + "="*60)
+        print(f" FRASE ORIGINAL: '{frase}'")
+        try:
+            # --------------------------------------------------
+            # PASSO 1: Fatiar a string (Léxico)
+            # --------------------------------------------------
+            tokens = lexico.tokenizar(frase)
+            
+            # --------------------------------------------------
+            # PASSO 2: Montar a fórmula e agrupar (Sintático)
+            # --------------------------------------------------
+            formula, variaveis_map = sintatico.parse(tokens)
+            
+            print(f" Mapeamento: {variaveis_map}")
+            print(f" Fórmula:    {formula}\n")
+            
+            # --------------------------------------------------
+            # PASSO 3: Calcular e imprimir a Tabela (Matemático)
+            # --------------------------------------------------
+            tabela, vars_encontradas, etapas = matematico.gerar_tabela_verdade(formula)
+            
+            print(" TABELA VERDADE:")
+            matematico.imprimir_tabela(tabela, vars_encontradas, etapas)
+            
+        except SyntaxError as se:
+            print(f" ERRO GRAMATICAL: {se}")
+        except Exception as e:
+            print(f" ERRO INESPERADO: {e}")
