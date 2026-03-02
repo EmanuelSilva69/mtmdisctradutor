@@ -15,7 +15,7 @@ def configurar_pagina():
 
 def renderizar_cabecalho():
     """Exibe o título e as instruções iniciais na tela."""
-    st.title("🧠 Analisador Lógico Proposicional")
+    st.title(" Analisador Lógico Proposicional")
     st.markdown("""
     Este sistema converte sentenças em linguagem natural (Português) para fórmulas lógicas 
     e gera automaticamente a **Tabela-Verdade**.
@@ -47,21 +47,24 @@ def processar_sentenca(frase):
     
     return formula, variaveis_map, tabela, vars_encontradas, etapas
 
-def main():
+def main(): #corrigi o bug do enter não ir.
     configurar_pagina()
     renderizar_cabecalho()
 
-    # --- ENTRADA DE DADOS ---
-    col1, col2 = st.columns([3, 1])
-    with col1:
-        frase_usuario = st.text_input(
-            "Digite sua frase lógica:", 
-            placeholder="Ex: Se estudo e pratico, então aprendo"
-        )
-    with col2:
-        st.write("##") # Espaçador para alinhar o botão
-        botao_gerar = st.button("Gerar Tabela-Verdade", use_container_width=True)
+    # Tudo dentro do 'with st.form' atua em conjunto. O Enter aciona o form_submit_button!
+    with st.form(key="form_logica"):
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            frase_usuario = st.text_input(
+                "Digite sua frase lógica:", 
+                placeholder="Ex: Se estudo e pratico, então aprendo"
+            )
+        with col2:
+            st.write("##") # Espaçador para alinhar o botão
+            # Trocamos st.button por st.form_submit_button
+            botao_gerar = st.form_submit_button("Gerar Tabela-Verdade", use_container_width=True)
 
+    # A partir daqui, fica fora do form. Só executa quando o formulário for enviado.
     if botao_gerar:
         if not frase_usuario.strip():
             st.warning("Por favor, digite uma frase antes de processar.")
@@ -71,14 +74,13 @@ def main():
             # Chamada da lógica de integração
             formula, vars_map, tabela, vars_list, etapas = processar_sentenca(frase_usuario)
 
-            # --- EXIBIÇÃO DE RESULTADOS ---
+            #aqui exibe o resultado
             st.subheader("✅ Análise Concluída")
             
             res_col1, res_col2 = st.columns(2)
             
             with res_col1:
                 st.info("**Mapeamento de Proposições:**")
-                # Exibe o dicionário de forma legível
                 for termo, letra in vars_map.items():
                     st.write(f"🔹 **{letra}**: {termo}")
 
@@ -88,16 +90,34 @@ def main():
 
             # --- TABELA VERDADE ---
             st.divider()
-            st.subheader("📊 Tabela-Verdade")
+            st.subheader("Tabela-Verdade")
             
-            # Convertendo a lista de dicionários em um DataFrame do Pandas para o Streamlit exibir
+            # 1. Converte para DataFrame
             df = pd.DataFrame(tabela)
             
-            # Traduzindo True/False para V/F para ficar academicamente correto
-            df_visual = df.applymap(lambda x: "V" if x else "F")
+            # 2. Ordenar as colunas (Variáveis primeiro, depois etapas parciais)
+            # Garantimos que a fórmula principal fique por último
+            colunas_ordenadas = vars_list + [e for e in etapas if e not in vars_list and e != formula]
+            if formula not in colunas_ordenadas:
+                colunas_ordenadas.append(formula)
             
-            # Exibindo a tabela com estilo
-            st.dataframe(df_visual, use_container_width=True)
+            # Filtra o dataframe pela ordem correta (caso falte alguma coluna, ignora erros)
+            df = df[[c for c in colunas_ordenadas if c in df.columns]]
+            
+            # 3. Traduzindo True/False para V/F (usando o método atualizado .map)
+            df_visual = df.map(lambda x: "V" if x else "F")
+            
+            # 4.  eu coloquei pra pintar a última coluna para dar destaque ao resultado
+            def pintar_fundo(val):
+                if val == 'V': return 'background-color: rgba(144, 238, 144, 0.3); font-weight: bold;'
+                if val == 'F': return 'background-color: rgba(255, 99, 71, 0.3); font-weight: bold;'
+                return ''
+            
+            ultima_col = df_visual.columns[-1]
+            tabela_estilizada = df_visual.style.map(pintar_fundo, subset=[ultima_col])
+            
+            # Exibindo a tabela formatada
+            st.dataframe(tabela_estilizada, use_container_width=True)
             
             st.caption(f"A tabela possui {len(df)} combinações possíveis ($2^{len(vars_list)}$ linhas).")
 
