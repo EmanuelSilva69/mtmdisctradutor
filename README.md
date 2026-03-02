@@ -44,32 +44,30 @@ Este projeto implementa os conceitos fundamentais da Lógica Proposicional, apli
 * **Contingência**: Expressão que pode assumir tanto valores verdadeiros quanto falsos, dependendo do contexto lógico.
 * **Equivalência Lógica**: Duas expressões são equivalentes quando apresentam os mesmos valores lógicos em todas as linhas da tabela-verdade.
   
-##  Interface e Experiência do Usuário  FALTA FAZER
-O projeto utiliza a biblioteca CustomTkinter para oferecer uma interface moderna com suporte a temas e elementos visuais dinâmicos.
+##  Interface e Experiência do Usuário  
+O projeto utiliza a biblioteca Streamlit para construir uma interface web interativa, responsiva e de fácil utilização, permitindo a conversão de sentenças em linguagem natural para fórmulas da Lógica Proposicional e a geração automática da Tabela-Verdade.
+A aplicação adota um layout organizado em colunas e blocos visuais, priorizando clareza acadêmica e experiência didática.
 <h3> Funcionalidades da Interface</h3>
 
-* **Validação em Tempo Real**: O sistema verifica se o conjunto inserido possui entre **4 e 8 elementos**, disparando um feedback visual temporário em caso de erro.
-* **Geração Aleatória Dinâmica**: O usuário pode alternar entre modos (**números, letras ou misto**) para gerar o **Conjunto B** automaticamente, utilizando um seletor segmentado.
-* **Visualização Formatada**: Os resultados são exibidos em blocos estilizados por cores através de uma classe de texto customizada:
-    * **Azul/Roxo**: Listagem detalhada dos conjuntos (A, B e Universo).
-    * **Icy Blue**: Resultados das operações matemáticas.
-    * **Neon Ice**: Cálculos de cardinalidade.
-    * **Roxo Escuro**: Análise de subconjuntos e disjunção.
-* **Fallback para Conjunto Vazio**: Se a interseção for vazia, o app exibe o símbolo matemático $\emptyset$ para clareza acadêmica.
-
+* **Validação de Entrada**: Antes do processamento ela vai verificar se o campo esta vazio e exibir `st.warnig()` caso não haja frase digitada.
+* **Tratamento de Erros**: O sistema trata dois tipos de erro que evita que a aplicação quebre visualmente: <br>
+    * `Syntaxerror` →exibido com `st.error()` como Erro de Sintaxe <br>
+    * Outros erros inesperados → Mensagem genérica com detalhe técnico
+* **Integração Modular Transparente**: A interface atua como camada de integração entre `base_lexica.py`, `sintaxe.py` e `modulo_matematico.py`. Essa separação mantém o princípio de arquitetura modular, deixando a interface desacoplada da lógica interna.
+  
 <h3> Identidade Visual (UI/UX)</h3>
 
-O projeto adota uma estética **Modern Slate**, focada em legibilidade e conforto visual através de um modo escuro profundo.
+O projeto adota uma estética clean e acadêmica, utilizando os componentes nativos do Streamlit para oferecer uma experiência clara, organizada e funcional.
 
-### Paleta de Cores (Slate Style)
-| Elemento | Cor | Hexadecimal |
-| :--- | :--- | :--- |
-| **Fundo** | Slate 900 | `#0F172A` |
-| **Cards** | Slate 800 | `#1E293B` |
-| **Destaque** | Sky Blue | `#38BDF8` |
-| **Botão** | Indigo | `#6366F1` |
-| **Sucesso** | Emerald | `#10B981` |
-| **Erro** | Red/Rose | `#EF4444` |
+### Paleta de Cores (Streamlit)
+| Elemento | Função na Interface | Hexadecimal | Hexadecimal | 
+| :--- | :--- | :--- | :--- |
+| **Fundo** | Slate 900 | `#0F172A` | `#0F172A` |
+| **Cards** | Slate 800 | `#1E293B` | `#1E293B` |
+| **Destaque** | Sky Blue | `#38BDF8` | `#38BDF8` |
+| **Botão** | Indigo | `#6366F1` | `#6366F1` |
+| **Sucesso** | Emerald | `#10B981` | `#10B981` |
+| **Erro** | Red/Rose | `#EF4444` | `#EF4444` |
 
 <h3> Tecnologias Utilizadas</h3>
 
