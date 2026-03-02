@@ -60,19 +60,21 @@ A aplicação adota um layout organizado em colunas e blocos visuais, priorizand
 O projeto adota uma estética clean e acadêmica, utilizando os componentes nativos do Streamlit para oferecer uma experiência clara, organizada e funcional.
 
 ### Paleta de Cores (Streamlit)
-| Elemento | Função na Interface | Hexadecimal | Hexadecimal | 
+| Elemento | Função na Interface | Cor Base | Hexadecimal | 
 | :--- | :--- | :--- | :--- |
-| **Fundo** | Slate 900 | `#0F172A` | `#0F172A` |
-| **Cards** | Slate 800 | `#1E293B` | `#1E293B` |
-| **Destaque** | Sky Blue | `#38BDF8` | `#38BDF8` |
-| **Botão** | Indigo | `#6366F1` | `#6366F1` |
-| **Sucesso** | Emerald | `#10B981` | `#10B981` |
-| **Erro** | Red/Rose | `#EF4444` | `#EF4444` |
+| **Fundo Principal** | Área geral da aplicação | Branco / Cinza Claro | `#FFFFFF`/ `#F0F2F6` |
+| **Cabeçalhos** | Títulos e subtítulos | Cinza Escuro | `#262730` |
+| **Info Box(`st.info`)** | Mapeamento de proposições | Azul Informativo | `#3B82F6` |
+| **Success Box (`st.success`)** | Fórmula lógica gerada | Verde Sucesso | `#10B981` |
+| **Erro Box (`st.error`)** | Erro sintático | Vermelho | `#EF4444` |
+| **Warning Box (`st.warning`)** |Campo vazio | Amarelo Alerta | `#F59E0B` |
+| **Botão Principal** | Ação "Gerar Tabela-Verdade" | Azul Primário | `#FF4B4B` (padrão Streamlit)|
+| **DataFrame** | Tabela-Verdade | Cinza Neutro com contraste automático | Adaptativo ao tema |
 
 <h3> Tecnologias Utilizadas</h3>
 
 * **Python 3.x**: Linguagem base.
-* **CustomTkinter**: Interface gráfica moderna com suporte a temas.
+* **Streamlit**: Framework web utilizado para construir a interface interativa da aplicação, permitindo entrada de texto, botões dinâmicos e exibição estilizada da Tabela-Verdade.
 
 * **Estrutura de Módulos**:
     * `base_lexica.py`: Implementação das funções de armazenar e tokenizar.
