@@ -160,16 +160,3 @@ class AnalisadorLexicoAFD:
                     estado = 'q_var' # Rebaixa para variável
 
         return self.tokens
-
-#Teste pra ver se isso funfa ou não
-if __name__ == "__main__":
-    lexico = AnalisadorLexicoAFD()
-    
-    frase_teste = "Se chove, então não saio e durmo ou jogo"
-    print(f"Frase original: '{frase_teste}'\n")
-    
-    tokens_gerados = lexico.tokenizar(frase_teste)
-    
-    print("Tokens gerados pelo AFD:")
-    for token in tokens_gerados:
-        print(token)
