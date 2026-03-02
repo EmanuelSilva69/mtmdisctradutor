@@ -23,7 +23,7 @@ O objetivo central deste software é servir como uma ferramenta didática e func
 
 ## Funcionalidades Principais
 
-* **Geração de Tabela-Verdade**: Criação automática da tabela-verdade completa a partir de uma fórmula lógica inserida pelo usuário.
+* **Geração de Tabela-Verdade**: Criação automática da tabela-verdade completa a partir de uma expressão lógica inserida pelo usuário.
 * **Avaliação de Expressões**: Interpretação e cálculo do valor lógico da expressão com base em diferentes atribuições de Verdadeiro (V) e Falso (F).
 * **Extração de Subexpressões**: Identificação automática das subexpressões intermediárias para detalhar o processo de avaliação lógica.
 * **Classificação da Fórmula**: Determinação se a expressão é uma tautologia, contradição ou contingência.
@@ -75,14 +75,14 @@ O projeto adota uma estética clean e acadêmica, utilizando os componentes nati
 
 * **Python 3.x**: Linguagem base.
 * **Streamlit**: Framework web utilizado para construir a interface interativa da aplicação, permitindo entrada de texto, botões dinâmicos e exibição estilizada da Tabela-Verdade.
+* **Pandas**: Biblioteca utilizada para criação, organização e manipulação da Tabela-Verdade.
 
 * **Estrutura de Módulos**:
     * `base_lexica.py`: Implementação das funções de armazenar e tokenizar.
     * `modulo_matematico.py`: Implementação das funções matemáticas.
     * `sintaxe.py`: Lógica de fazer parse e alocar variável.
-    * `design.py`: Gerenciamento de cores, fontes e temas globais.
-    * `main.py`: Orquestrador da interface e fluxo do app.
-
+    * `interface.py`: Gerenciamento de cores, fontes e temas globais, e gera um link para ser execultado localmente pelo navegador.
+          
 ##  Arquitetura do Código
 
 ### [`base_lexica.py`](base_lexica.py) - Analisador Léxico (AFD)
@@ -137,10 +137,16 @@ O controle da análise é feito pela variável estado, que alterna entre:
 
 Essa alternância garante que a estrutura da frase respeite a gramática lógica básica.
 
-### [`main_app.py`](main_app.py) - Interface Principal FALTA
-A:
-* A
-
+### [`interface.py`](interface.py) - Interface Principal 
+Gerenciar a interação com o usuário e integrar os módulos de processamento lógico. A interface é a camada responsável por conectar o usuário ao motor lógico do sistema, permitindo que sentenças em linguagem natural sejam convertidas em fórmulas da Lógica Proposicional e tenham sua Tabela-Verdade gerada automaticamente.
+`Principais funções`:
+* configurar_pagina() → Define título da aba, ícone e layout da aplicação.
+* renderizar_cabecalho() → Exibe o título principal, descrição e exemplos de uso.
+* processar_sentenca(frase) → Função de integração que conecta:
+*     **AnalisadorLexicoAFD
+*     **AnalisadorSintatico
+*     **ModuloMatematico
+* `main() → Controla o fluxo geral da aplicação`.
 <h1> Como Instalar e Executar</h1>
 
 Siga estes passos para configurar o projeto na sua máquina:
@@ -154,9 +160,9 @@ cd mtmdisctradutor
 ```
 3. **Instale as bibliotecas necessárias:**:
 ```PowerShell
-py -m pip install 
+pip install streamlit
 ```
  3. **Inicie a aplicação**:   
 ```PowerShell
-py main.py
+streamlit run interface.py
 ```
