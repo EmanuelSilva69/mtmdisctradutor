@@ -4,6 +4,7 @@ import pandas as pd
 from base_lexica import AnalisadorLexicoAFD
 from sintaxe import AnalisadorSintatico
 from modulo_matematico import ModuloMatematico
+import re
 
 def configurar_pagina():
     """Configura o layout e o título da aba do navegador."""
@@ -47,11 +48,23 @@ def processar_sentenca(frase):
     
     return formula, variaveis_map, tabela, vars_encontradas, etapas
 
-def main(): #corrigi o bug do enter não ir.
+def validar_proposicao(frase):
+    """
+    Validação semântica simples:
+
+    """
+
+    frase = frase.strip()
+
+    if "?" in frase or "!" in frase:
+        return False, "Não é uma proposição."
+
+    return True, ""
+
+def main():
     configurar_pagina()
     renderizar_cabecalho()
 
-    # Tudo dentro do 'with st.form' atua em conjunto. O Enter aciona o form_submit_button!
     with st.form(key="form_logica"):
         col1, col2 = st.columns([3, 1])
         with col1:
@@ -60,22 +73,29 @@ def main(): #corrigi o bug do enter não ir.
                 placeholder="Ex: Se estudo e pratico, então aprendo"
             )
         with col2:
-            st.write("##") # Espaçador para alinhar o botão
-            # Trocamos st.button por st.form_submit_button
+            st.write("##") 
+        
             botao_gerar = st.form_submit_button("Gerar Tabela-Verdade", use_container_width=True)
 
-    # A partir daqui, fica fora do form. Só executa quando o formulário for enviado.
     if botao_gerar:
         if not frase_usuario.strip():
             st.warning("Por favor, digite uma frase antes de processar.")
             return
+        
+        valido, mensagem = validar_proposicao(frase_usuario)
 
+        if not valido:
+            st.error(mensagem)
+            return
+        
         try:
-            # Chamada da lógica de integração
             formula, vars_map, tabela, vars_list, etapas = processar_sentenca(frase_usuario)
 
-            #aqui exibe o resultado
-            st.subheader("✅ Análise Concluída")
+            if len(vars_list) < 2:
+                st.error("A Tabela-Verdade só pode ser gerada para fórmulas com pelo menos duas proposições.")
+                return
+
+            st.subheader("Análise Concluída")
             
             res_col1, res_col2 = st.columns(2)
             
@@ -88,11 +108,9 @@ def main(): #corrigi o bug do enter não ir.
                 st.success("**Fórmula Lógica Gerada:**")
                 st.code(formula, language="text")
 
-            # --- TABELA VERDADE ---
             st.divider()
             st.subheader("Tabela-Verdade")
             
-            # 1. Converte para DataFrame
             df = pd.DataFrame(tabela)
             
             # 2. Ordenar as colunas (Variáveis primeiro, depois etapas parciais)
