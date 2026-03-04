@@ -4,14 +4,19 @@ Este projeto é uma ferramenta interativa para análise e avaliação de express
 ## Descrição do Problema
 O desafio consiste em desenvolver um software para manipular e avaliar expressões da Lógica Proposicional, com as seguintes restrições:
 
-* **Entrada de Dados:** O usuário deve fornecer uma **fórmula lógica** bem formada, composta por **proposições simples** (ex: P, Q, R) e conectivos lógicos como **negação** (¬), **conjunção** (∧), **disjunção** (∨), **implicação** (→) e **bicondicional** (↔).
-* **Validação Sintática em:** O sistema deve verificar se a expressão inserida é válida, garantindo o **uso correto** de **parênteses**, **operadores** e **estrutura lógica adequada**.
+* **Entrada de Dados:** O sistema aceita sentenças em linguagem natural.
+  * **Exemplo de Entrada:** *"Se chover e eu não tiver um guarda-chuva, então eu vou me molhar."*
+* **Análise de Sentenças:** O algoritmo deve verificar se a entrada é uma proposição válida para a lógica formal, garantindo que a estrutura contenha apenas sentenças declarativas e assegurando a integridade da expressão subjacente.
+* **Conversão Simbólica:** O motor de análise precisa identificar e mapear proposições simples e conectivos lógicos fundamentais:
+    * **Negação:** $(\neg)$
+    * **Conjunção:** $(\wedge)$
+    * **Disjunção:** $(\vee)$
+    * **Implicação:** $(\to)$
 * **Processamento e Saída:** O programa deve identificar e exibir automaticamente as subexpressões intermediárias, permitindo ao usuário acompanhar detalhadamente o processo de avaliação lógica:
     * Identificar automaticamente as **proposições simples** presentes na fórmula.
     * Gerar todas as combinações possíveis de valores lógicos **(Verdadeiro e Falso)**.
     * Avaliar cada subexpressão da fórmula com base em um determinado contexto de valores.
     * Exibir a **tabela-verdade** completa da expressão.
-    * Permitir a análise da fórmula quanto à sua classificação lógica, determinando se é uma **tautologia**, **contradição** ou **contingência**.
 
 ##  Objetivo do Programa
 
