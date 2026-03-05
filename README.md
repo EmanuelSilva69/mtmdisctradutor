@@ -48,8 +48,8 @@ Antes de processar a sentença em linguagem natural, o sistema realiza algumas v
 
     4. Parênteses não permitidos: os caracteres `(` e `)` não são aceitos na entrada do usuário. A precedência das operações lógicas é definida automaticamente pelo sistema durante a análise sintática.
 
-    5. Limite de tamanho da frase
-    Para evitar sobrecarga de processamento, a frase deve possuir no máximo **200 caracteres**.
+    5. Limite de tamanho da frase: 
+    para evitar sobrecarga de processamento, a frase deve possuir no máximo **200 caracteres**.
 
     6. Restrição de caracteres permitidos: a entrada aceita apenas letras (`A–Z`, `a–z`), letras acentuadas (`À–ÿ`), espaços, vírgula `,` e ponto `.` 
     (outros caracteres são rejeitados automaticamente).
