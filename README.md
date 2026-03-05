@@ -1,82 +1,72 @@
-#   (Lógica Proposicional e Predicados).
-Este projeto é uma ferramenta interativa para análise e avaliação de expressões da Lógica Proposicional e de Predicados, desenvolvida como parte dos estudos em Lógica e Matemática Discreta. O sistema permite interpretar fórmulas lógicas, avaliar proposições com base em diferentes contextos e gerar automaticamente tabelas-verdade, possibilitando a verificação formal de equivalências, tautologias, contradições e validade lógica de expressões inseridas pelo usuário.
+# Protótipo para análise de sentenças lógicas
+Este protótipo é uma ferramenta interativa para análise e avaliação de expressões da lógica proposicional, desenvolvida como parte dos estudos na disciplina Lógica e Matemática Discreta, ministrada pelo Profº Rondineli Seba pela Universidade Federal do Maranhão. 
 
-## Descrição do Problema
-O desafio consiste em desenvolver um software para manipular e avaliar expressões da Lógica Proposicional, com as seguintes restrições:
+```Discentes: Angelica da Silva Alves, Emanuel Lopes Silva, José Nunes de Sousa Neto, Josuel Pinheiro Barros Junior e Virgínia Maria Mondêgo Ferreira ```
 
-* **Entrada de Dados:** O sistema aceita sentenças em linguagem natural.
-  * **Exemplo de Entrada:** *"Se chover e eu não tiver um guarda-chuva, então eu vou me molhar."*
-* **Análise de Sentenças:** O algoritmo deve verificar se a entrada é uma proposição válida para a lógica formal, garantindo que a estrutura contenha apenas sentenças declarativas e assegurando a integridade da expressão subjacente.
-* **Conversão Simbólica:** O motor de análise precisa identificar e mapear proposições simples e conectivos lógicos fundamentais:
-    * **Negação:** $(\neg)$
-    * **Conjunção:** $(\wedge)$
-    * **Disjunção:** $(\vee)$
-    * **Implicação:** $(\to)$
-* **Processamento e Saída:** O programa deve identificar e exibir automaticamente as subexpressões intermediárias, permitindo ao usuário acompanhar detalhadamente o processo de avaliação lógica:
-    * Identificar automaticamente as **proposições simples** presentes na fórmula.
-    * Gerar todas as combinações possíveis de valores lógicos **(Verdadeiro e Falso)**.
-    * Avaliar cada subexpressão da fórmula com base em um determinado contexto de valores.
-    * Exibir a **tabela-verdade** completa da expressão.
+## Descrição do problema
+Consiste em desenvolver um software para avaliar sentenças em linguagem natural e gerar expressões da lógica proposicional, que avalie o contexto, detalhe os conectivos e as proposições extraídas, gere tabela-verdade da expressão e aponte as classificações: contingência, tautologia e contradição. 
 
-##  Objetivo do Programa
-
-O objetivo central deste software é servir como uma ferramenta didática e funcional para a análise formal de expressões da Lógica Proposicional, permitindo a visualização estruturada do processo de avaliação lógica por meio da geração de tabelas-verdade.
-
-* **Demonstrar a Lógica Algorítmica:** Evidenciar o funcionamento interno da avaliação de fórmulas lógicas através da implementação manual dos algoritmos responsáveis por interpretar expressões, gerar combinações de valores lógicos e calcular os resultados de cada conectivo, evitando dependência de funções prontas que abstraiam o raciocínio lógico.
-* **Validar Propriedades Matemáticas:** Aplicar na prática conceitos como tautologia, contradição e contingência, garantindo que o sistema respeite rigorosamente as regras formais da Lógica Matemática durante a avaliação das expressões.
-* **Facilitar a Visualização:** Proporcionar uma forma clara e organizada de exibir a tabela-verdade completa, incluindo subexpressões intermediárias, permitindo que o usuário acompanhe detalhadamente cada etapa do processo de avaliação lógica.
-
-## Funcionalidades Principais
-
-* **Geração de Tabela-Verdade**: Criação automática da tabela-verdade completa a partir de uma expressão lógica inserida pelo usuário.
-* **Avaliação de Expressões**: Interpretação e cálculo do valor lógico da expressão com base em diferentes atribuições de Verdadeiro (V) e Falso (F).
-* **Extração de Subexpressões**: Identificação automática das subexpressões intermediárias para detalhar o processo de avaliação lógica.
-* **Classificação da Fórmula**: Determinação se a expressão é uma tautologia, contradição ou contingência.
-* **Validação Sintática**: Verificação da estrutura da fórmula, garantindo o uso correto de conectivos e parênteses antes da avaliação.
-##  Fundamentos Teóricos
-Este projeto implementa os conceitos fundamentais da Lógica Proposicional, aplicados à construção e análise de tabelas-verdade:
+##  Fundamentação teórica
+Os conceitos fundamentais da lógica proposicional:
 * **Proposição**: Sentença declarativa que pode assumir apenas dois valores lógicos: Verdadeiro (V) ou Falso (F).
-* **Negação (¬P)**:Inverte o valor lógico de uma proposição.
-* **Conjunção (P ∧ Q)**: É verdadeira somente quando ambas as proposições são verdadeiras.
-* **Disjunção (P ∨ Q)**: É verdadeira quando pelo menos uma das proposições é verdadeira.
-* **Implicação (P → Q)**: É falsa apenas quando P é verdadeira e Q é falsa.
-* **Bicondicional (P ↔ Q)**: É verdadeira quando ambas as proposições possuem o mesmo valor lógico.
+* **Conectivo: negação (¬P)**:Inverte o valor lógico de uma proposição.
+* **Conectivo: conjunção (P ∧ Q)**: É verdadeira somente quando ambas as proposições são verdadeiras.
+* **Conectivo: disjunção (P ∨ Q)**: É verdadeira quando pelo menos uma das proposições é verdadeira.
+* **Conectivo: implicação (P → Q)**: É falsa apenas quando P é verdadeira e Q é falsa.
+* **Conectivo: bicondicional (P ↔ Q)**: É verdadeira quando ambas as proposições possuem o mesmo valor lógico.
 * **Tabela-Verdade**: Estrutura que apresenta todas as possíveis combinações de valores lógicos das proposições simples e o resultado final da expressão composta.
 
-### Propriedades Verificadas
-* **Tautologia**: Expressão que é verdadeira para todas as combinações possíveis de valores lógicos.
-* **Contradição**: Expressão que é falsa para todas as combinações possíveis.
-* **Contingência**: Expressão que pode assumir tanto valores verdadeiros quanto falsos, dependendo do contexto lógico.
-* **Equivalência Lógica**: Duas expressões são equivalentes quando apresentam os mesmos valores lógicos em todas as linhas da tabela-verdade.
+### Propriedades:
+
+* **Tautologia**: Expressão lógica que é verdadeira em todas as possíveis combinações de valores de verdade de suas proposições.
+* **Contradição**: Expressão lógica que é falsa em todas as possíveis combinações de valores de verdade.
+* **Contingência**: Expressão lógica que pode assumir tanto valor verdadeiro quanto falso, dependendo da combinação de valores das proposições.
+* **Equivalência Lógica**: Duas expressões são logicamente equivalentes quando possuem os mesmos valores de verdade em todas as linhas da tabela-verdade.
+
+## Funcionalidades principais do protótipo
+
+* **Geração de Tabela-Verdade**: Criação automática da tabela-verdade completa a partir de uma expressão lógica inserida pelo usuário que contenha duas ou mais proposições.
+* **Avaliação de expressões**: Interpretação e cálculo do valor lógico da expressão com base em diferentes atribuições de Verdadeiro (V) e Falso (F).
+* **Extração de subexpressões**: Identificação automática das subexpressões intermediárias para detalhar o processo de avaliação lógica.
+* **Classificação da fórmula**: Determinação da classificação que se encaixe com expressão utilizada: tautologia, contradição ou contingência.
+* **Validação de entrada**: Verificação da estrutura e escrita da frase, garantindo a entrada correta antes da avaliação.
   
-##  Interface e Experiência do Usuário  
-O projeto utiliza a biblioteca Streamlit para construir uma interface web interativa, responsiva e de fácil utilização, permitindo a conversão de sentenças em linguagem natural para fórmulas da Lógica Proposicional e a geração automática da Tabela-Verdade.
+##  Interface e experiência do usuário  
+Utiliza-se a biblioteca Streamlit para construir uma interface web interativa, responsiva e de fácil utilização, permitindo a conversão de sentenças em linguagem natural para fórmulas da lógica proposicional e a geração automática da Tabela-Verdade.
 A aplicação adota um layout organizado em colunas e blocos visuais, priorizando clareza acadêmica e experiência didática.
+
 <h3> Funcionalidades da Interface</h3>
 
-* **Validação de Entrada**: Antes do processamento ela vai verificar se o campo esta vazio e exibir `st.warnig()` caso não haja frase digitada.
+* **Validação de Entrada**:
+Antes de processar a sentença em linguagem natural, o sistema realiza algumas verificações para evitar ambiguidades e erros durante a análise lógica, sendo elas:
+    1. Campo obrigatório: o sistema verifica se o usuário digitou uma frase.  Caso o campo esteja vazio, é exibido um aviso utilizando `st.warning()` solicitando que uma frase seja informada.
+    2. Verificação de proposição: frases contendo os caracteres `?` ou `!` são rejeitadas, pois normalmente representam perguntas ou exclamações e não proposições lógicas.
+    3. Restrição à Predicados: o sistema não aceita quantificadores da lógica de predicados, como:
+
+    - `∀` (quantificador universal)
+    - `∃` (quantificador existencial)
+
+    4. Parênteses não permitidos: os caracteres `(` e `)` não são aceitos na entrada do usuário. A precedência das operações lógicas é definida automaticamente pelo sistema durante a análise sintática.
+
+    5. Limite de tamanho da frase
+    Para evitar sobrecarga de processamento, a frase deve possuir no máximo **200 caracteres**.
+
+    6. Restrição de caracteres permitidos: a entrada aceita apenas letras (`A–Z`, `a–z`), letras acentuadas (`À–ÿ`), espaços, vírgula `,` e ponto `.` 
+    (outros caracteres são rejeitados automaticamente).
 * **Tratamento de Erros**: O sistema trata dois tipos de erro que evita que a aplicação quebre visualmente: <br>
     * `Syntaxerror` →exibido com `st.error()` como Erro de Sintaxe <br>
     * Outros erros inesperados → Mensagem genérica com detalhe técnico
 * **Integração Modular Transparente**: A interface atua como camada de integração entre `base_lexica.py`, `sintaxe.py` e `modulo_matematico.py`. Essa separação mantém o princípio de arquitetura modular, deixando a interface desacoplada da lógica interna.
-  
-<h3> Identidade Visual (UI/UX)</h3>
+<h2> Exemplo de uso </h2>
+Um determinado aluno rodou o programa de Análise de sentenças lógicas dos discentes de Engenharia da Computação e precisou analisar a frase "chove e venta, logo faz frio":
 
-O projeto adota uma estética clean e acadêmica, utilizando os componentes nativos do Streamlit para oferecer uma experiência clara, organizada e funcional.
+![Exemplo](images/image.png)
 
-### Paleta de Cores (Streamlit)
-| Elemento | Função na Interface | Cor Base | Hexadecimal | 
-| :--- | :--- | :--- | :--- |
-| **Fundo Principal** | Área geral da aplicação | Branco / Cinza Claro | `#FFFFFF`/ `#F0F2F6` |
-| **Cabeçalhos** | Títulos e subtítulos | Cinza Escuro | `#262730` |
-| **Info Box(`st.info`)** | Mapeamento de proposições | Azul Informativo | `#3B82F6` |
-| **Success Box (`st.success`)** | Fórmula lógica gerada | Verde Sucesso | `#10B981` |
-| **Erro Box (`st.error`)** | Erro sintático | Vermelho | `#EF4444` |
-| **Warning Box (`st.warning`)** |Campo vazio | Amarelo Alerta | `#F59E0B` |
-| **Botão Principal** | Ação "Gerar Tabela-Verdade" | Azul Primário | `#FF4B4B` (padrão Streamlit)|
-| **DataFrame** | Tabela-Verdade | Cinza Neutro com contraste automático | Adaptativo ao tema |
+Recebeu como resposta o mapeamento de proposições, a fórmula lógica gerada (conforme imagem acima), a Tabela-Verdade e sua classificação, segundo a figura abaixo:
 
-<h3> Tecnologias Utilizadas</h3>
+![Exemplo2](images/image2.png)
+
+<h2> Tecnologias Utilizadas</h2>
 
 * **Python 3.x**: Linguagem base.
 * **Streamlit**: Framework web utilizado para construir a interface interativa da aplicação, permitindo entrada de texto, botões dinâmicos e exibição estilizada da Tabela-Verdade.
@@ -86,73 +76,9 @@ O projeto adota uma estética clean e acadêmica, utilizando os componentes nati
     * `base_lexica.py`: Implementação das funções de armazenar e tokenizar.
     * `modulo_matematico.py`: Implementação das funções matemáticas.
     * `sintaxe.py`: Lógica de fazer parse e alocar variável.
-    * `interface.py`: Gerenciamento de cores, fontes e temas globais, e gera um link para ser execultado localmente pelo navegador.
+    * `interface.py`: Gerenciamento de cores, fontes e temas globais, execulta localmente pelo navegador e age como main.
           
-##  Arquitetura do Código
-
-### [`base_lexica.py`](base_lexica.py) - Analisador Léxico (AFD)
-Implementa manualmente um Autômato Finito Determinístico para reconhecimento de conectivos lógicos e variáveis proposicionais, utilizando leitura caractere por caractere, controle explícito de estados e uso de buffer:
-
-* `normalizar(frase)`<br>
-→ Converte a frase para minúsculas.<br>
-→ Remove pontuações irrelevantes (., !, ?).<br>
-→ Mantém vírgula como símbolo lógico.<br>
-→ Adiciona espaço ao final da string para garantir o fechamento correto do último token.<br>
-
-* `tokenizar(frase)`<br>
-→ Percorre a string caractere por caractere.<br>
-→ Controla transições entre estados (q0, q_e, q_se, q_entao, q_nao, q_ou, q_logo, q_var, etc.).<br>
-→ Utiliza um buffer para acumular caracteres até formar um token válido.<br>
-
-* **TOKENS RECONHECIDOS**: <br>
-**TOKEN_SE** → palavra “se”<br>
-**TOKEN_ENTAO** → palavras “então” ou “logo”<br>
-**TOKEN_E** → conectivo “e”<br>
-**TOKEN_OU** → conectivo “ou”<br>
-**TOKEN_NAO** → negação “não”<br>
-**TOKEN_VIRGULA** → símbolo “,"<br>
-**TOKEN_VARIAVEL** → qualquer outra palavra tratada como proposição<br>
-
- `FUNCIONAMENTO INTERNO`
-→ O estado inicial (q0) ignora espaços e identifica possíveis inícios de conectivos.<BR>
-→ Estados intermediários verificam se a sequência de caracteres realmente forma um conectivo válido.<BR>
-→ Caso a sequência deixe de corresponder a um conectivo, o estado é rebaixado para q_var.<BR>
-→ Um token só é confirmado quando encontra delimitador (espaço ou vírgula).<BR>
-→ Após confirmar o token, o buffer é limpo e o autômato retorna ao estado inicial. <BR>
-
-### [`modulo_matematico.py`](modulo_matematico.py) - Motor Matemático (Avaliação Lógica)
-Principais métodos:
-
-* **gerar_tabela_verdade(formula)**
-* **avaliar(exp, contexto)**
-* **imprimir_tabela(...)**
-* **extrair_subexpressoes_automaticas(...)**
-Responsável por avaliação lógica e geração de tabela-verdade.
-
-### [`sintaxe.py`](sintaxe.py) - Analisador Sintático
-*     Classe: AnalisadorSintatico
-
-Principais métodos:
-responsável por transformar a sequência de tokens gerada pelo analisador léxico em uma fórmula lógica formal da Lógica Proposicional. <BR>
-O controle da análise é feito pela variável estado, que alterna entre:
-
-* ESPERANDO_TERMO
-
-* ESPERANDO_OPERADOR <BR>
-
-Essa alternância garante que a estrutura da frase respeite a gramática lógica básica.
-
-### [`interface.py`](interface.py) - Interface Principal 
-Gerenciar a interação com o usuário e integrar os módulos de processamento lógico. A interface é a camada responsável por conectar o usuário ao motor lógico do sistema, permitindo que sentenças em linguagem natural sejam convertidas em fórmulas da Lógica Proposicional e tenham sua Tabela-Verdade gerada automaticamente.
-`Principais funções`:
-* configurar_pagina() → Define título da aba, ícone e layout da aplicação.
-* renderizar_cabecalho() → Exibe o título principal, descrição e exemplos de uso.
-* processar_sentenca(frase) → Função de integração que conecta:
-*     **AnalisadorLexicoAFD
-*     **AnalisadorSintatico
-*     **ModuloMatematico
-* `main() → Controla o fluxo geral da aplicação`.
-<h1> Como Instalar e Executar</h1>
+<h2> Instalação e execução do programa</h1>
 
 Siga estes passos para configurar o projeto na sua máquina:
 1. **Clone o repositório** (ou baixe os arquivos):
@@ -163,11 +89,31 @@ git clone https://github.com/EmanuelSilva69/mtmdisctradutor.git
 ```bash
 cd mtmdisctradutor
 ```
-3. **Instale as bibliotecas necessárias:**:
-```PowerShell
-pip install streamlit
+3. **Crie um ambiente virtual:**
+
+Linux / macOS
+```bash
+python3 -m venv venv
 ```
- 3. **Inicie a aplicação**:   
+Windows
+```PowerShell
+python -m venv venv
+```
+4. **Ative o ambiente virtual:**
+
+Linux / macOS
+```bash
+source venv/bin/activate
+```
+Windows
+```PowerShell
+venv\Scripts\activate
+```
+5. **Instale as bibliotecas necessárias:**:
+```PowerShell
+pip install -r requirements.txt
+```
+6. **Inicie a aplicação**:   
 ```PowerShell
 streamlit run interface.py
 ```

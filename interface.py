@@ -26,6 +26,10 @@ def renderizar_cabecalho():
     - *Estudo e trabalho, logo passo*
     - *Fico em casa ou vou ao cinema*
     """)
+    st.markdown("""
+    **Restrição de entrada essencial:**
+        A frase deve ser uma oração.
+    """)
     st.divider()
 
 def processar_sentenca(frase):
@@ -109,8 +113,8 @@ def main():
             if len(vars_list) > 6:
                 st.error("ALERTA: O sistema permite no máximo 6 proposições distintas (limitação computacional).")
                 return
-            if len(vars_list) < 2:
-                st.error("A Tabela-Verdade só pode ser gerada para fórmulas com pelo menos duas proposições.")
+            if len(vars_list) == 0:
+                st.error("Nenhuma proposição foi identificada.")
                 return
 
             st.subheader("Análise Concluída")

@@ -6,6 +6,7 @@ class AnalisadorLexicoAFD:
     def normalizar(self, frase): 
 
         frase = frase.lower().strip()
+        frase = frase.replace("se e somente se", " bicond ")
         para_remover = ['.', '!', '?']
         for p in para_remover:
             frase = frase.replace(p, '')
@@ -43,6 +44,9 @@ class AnalisadorLexicoAFD:
                 elif char == 'l':
                     buffer += char
                     estado = 'q_l'  
+                elif char == 'b':
+                    buffer += char
+                    estado = 'q_b'
                 else:
                     buffer += char
                     estado = 'q_var' 
@@ -119,9 +123,50 @@ class AnalisadorLexicoAFD:
                 if char == 'o': buffer += char; estado = 'q_logo'
                 else: buffer += char; estado = 'q_var'
 
+            # Caminho do "bicond"
+            elif estado == 'q_b':
+                if char == 'i':
+                    buffer += char
+                    estado = 'q_bi'
+                else:
+                    buffer += char
+                    estado = 'q_var'
+
+            elif estado == 'q_bi':
+                if char == 'c':
+                    buffer += char
+                    estado = 'q_bic'
+                else:
+                    buffer += char
+                    estado = 'q_var'
+
+            elif estado == 'q_bic':
+                if char == 'o':
+                    buffer += char
+                    estado = 'q_bico'
+                else:
+                    buffer += char
+                    estado = 'q_var'
+
+            elif estado == 'q_bico':
+                if char == 'n':
+                    buffer += char
+                    estado = 'q_bicon'
+                else:
+                    buffer += char
+                    estado = 'q_var'
+
+            elif estado == 'q_bicon':
+                if char == 'd':
+                    buffer += char
+                    estado = 'q_bicond'
+                else:
+                    buffer += char
+                    estado = 'q_var'
+
             # ESTADOS DE ACEITAÇÃO (Fechamento do Token)
             # O autômato só confirma o token se a palavra terminar (espaço ou vírgula)
-            elif estado in ['q_se', 'q_entao', 'q_ou', 'q_nao', 'q_logo', 'q_var']:
+            elif estado in ['q_se', 'q_entao', 'q_ou', 'q_nao', 'q_logo', 'q_bicond', 'q_var']:
                 if char.isspace() or char == ',':
                     # Descobre qual token emitir baseado no estado de aceitação
                     if estado == 'q_se':
@@ -132,6 +177,8 @@ class AnalisadorLexicoAFD:
                         self.tokens.append(('TOKEN_OU', buffer))
                     elif estado == 'q_nao':
                         self.tokens.append(('TOKEN_NAO', buffer))
+                    elif estado == 'q_bicond':
+                        self.tokens.append(('TOKEN_BICOND', buffer))
                     elif estado == 'q_var':
                         self.tokens.append(('TOKEN_VARIAVEL', buffer))
                     
@@ -144,6 +191,7 @@ class AnalisadorLexicoAFD:
                         self.tokens.append(('TOKEN_VIRGULA', ','))
                 else:
                     buffer += char
-                    estado = 'q_var' 
+                    estado = 'q_var'
 
         return self.tokens
+    

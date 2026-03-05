@@ -27,8 +27,13 @@ class ModuloMatematico:
 
     def avaliar(self, exp, contexto):
         try:
-            # 1. Se a expressão for uma implicação, tratamos como (not A or B)
-            if '→' in exp:
+            if '↔' in exp:
+                partes = exp.split('↔')
+                esq = partes[0].strip().strip('()')
+                dir = partes[1].strip().strip('()')
+                exp_python = f"(({esq}) == ({dir}))"
+                
+            elif '→' in exp:
                 partes = exp.split('→')
                 # Remove parênteses externos das partes para não bugar o split
                 ant = partes[0].strip().strip('()')

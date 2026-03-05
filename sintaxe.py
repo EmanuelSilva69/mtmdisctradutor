@@ -11,7 +11,8 @@ class AnalisadorSintatico:
             'TOKEN_E': '∧',
             'TOKEN_OU': '∨',
             'TOKEN_NAO': '¬',
-            'TOKEN_ENTAO': '→'
+            'TOKEN_ENTAO': '→',
+            'TOKEN_BICOND': '↔'
         }
 
     def alocar_variavel(self, texto):
@@ -73,7 +74,7 @@ class AnalisadorSintatico:
                     raise SyntaxError(f"Erro gramatical: Esperava uma proposição, mas encontrei '{valor}'.")
 
             elif estado == 'ESPERANDO_OPERADOR':
-                if tipo in ['TOKEN_E', 'TOKEN_OU']:
+                if tipo in ['TOKEN_E', 'TOKEN_OU', 'TOKEN_BICOND']:
                     formula_tokens.append(self.simbolos[tipo])
                     estado = 'ESPERANDO_TERMO' 
                     
