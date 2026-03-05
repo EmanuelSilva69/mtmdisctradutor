@@ -1,62 +1,52 @@
-# aqui eu usei um AFD pra fazer a substituição (sim, tem a biblioteca regex, mas eu queria fazer do zero mesmo, ensina mais.)
+
 class AnalisadorLexicoAFD:
     def __init__(self):
         self.tokens = []
 
-    def normalizar(self, frase): #normalização da string, deixando tudo minúsculo e removendo pontuações desnecessárias
+    def normalizar(self, frase): 
 
-        #Mantemos a vírgula, pois ela é importante para a lógica.
         frase = frase.lower().strip()
-        # Removemos pontuações irrelevantes
         para_remover = ['.', '!', '?']
         for p in para_remover:
             frase = frase.replace(p, '')
             
-        # Adicionamos um espaço no final. Isso é um truque clássico de compiladores (em lfa se n tiver o espaço final o código entrava em loop infinito, porque o autômato ficava esperando um terminador de token que nunca chegava). Ele garante que a última palavra da frase seja processada corretamente, mesmo que não haja um espaço depois dela.
-        # para garantir que a última palavra da frase seja forçada a ser processada.
         return frase + ' '
 
     def tokenizar(self, frase):
-        #esse aqui é o AFD, ele lê e traduz a frase em tokens, e retorna um vetor com os tokens
-
         frase_limpa = self.normalizar(frase)
         self.tokens = []
         
         estado = 'q0'
-        buffer = '' #buffer inicial vazio, ele vai acumulando os caracteres lidos até formar um token completo. Quando um token é reconhecido, o buffer é limpo para começar a acumular o próximo token.
-        
-        # O cabeçote de leitura do nosso autômato
+        buffer = '' 
+     
         for char in frase_limpa:
-            
-            # Aqui começa o estado inicial, onde o autômato procura por caracteres que possam iniciar um token. Ele ignora espaços e reconhece vírgulas imediatamente. Para letras específicas, ele transita para estados de investigação para determinar se formam conectivos ou variáveis.
-
+            #Aqui começa o estado inicial, onde o autômato procura por caracteres que possam iniciar um token. 
+            # Ele ignora espaços e reconhece vírgulas imediatamente. Para letras específicas, 
+            # ele transita para estados de investigação para determinar se formam conectivos ou variáveis.
             if estado == 'q0':
                 if char.isspace():
-                    continue # Fica no q0 ignorando espaços
+                    continue 
                 elif char == ',':
                     self.tokens.append(('TOKEN_VIRGULA', ','))
                 elif char == 'e':
                     buffer += char
-                    estado = 'q_e'  # Pode ser 'e' ou 'então'
+                    estado = 'q_e' 
                 elif char == 'o':
                     buffer += char
-                    estado = 'q_o'  # Pode ser 'ou'
+                    estado = 'q_o'  
                 elif char == 's':
                     buffer += char
-                    estado = 'q_s'  # Pode ser 'se'
+                    estado = 'q_s'  
                 elif char == 'n':
                     buffer += char
-                    estado = 'q_n'  # Pode ser 'não'
+                    estado = 'q_n'  
                 elif char == 'l':
                     buffer += char
-                    estado = 'q_l'  # Pode ser 'logo'
+                    estado = 'q_l'  
                 else:
                     buffer += char
-                    estado = 'q_var' # Começou com outra letra, é uma proposição
+                    estado = 'q_var' 
                     
-            # · · ─ ·· ─ · ·
-            # ESTADOS DE TRANSIÇÃO - Investigando conectivos
-            # · · ─ ·· ─ · ·
             # Caminho do "se"
             elif estado == 'q_s':
                 if char == 'e':
@@ -129,9 +119,7 @@ class AnalisadorLexicoAFD:
                 if char == 'o': buffer += char; estado = 'q_logo'
                 else: buffer += char; estado = 'q_var'
 
-            # · · ─ ·· ─ · ·
             # ESTADOS DE ACEITAÇÃO (Fechamento do Token)
-            # · · ─ ·· ─ · ·
             # O autômato só confirma o token se a palavra terminar (espaço ou vírgula)
             elif estado in ['q_se', 'q_entao', 'q_ou', 'q_nao', 'q_logo', 'q_var']:
                 if char.isspace() or char == ',':
@@ -155,8 +143,7 @@ class AnalisadorLexicoAFD:
                     if char == ',':
                         self.tokens.append(('TOKEN_VIRGULA', ','))
                 else:
-                    # Se não era espaço, a palavra continuou (ex: "sentimento" depois de formar "se")
                     buffer += char
-                    estado = 'q_var' # Rebaixa para variável
+                    estado = 'q_var' 
 
         return self.tokens
